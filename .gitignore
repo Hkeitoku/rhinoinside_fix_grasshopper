@@ -1,0 +1,12 @@
+.vs/
+bin/
+obj/
+out/
+*.user
+*.suo
+*.dll
+*.pdb
+*.zip
+*.log
+__pycache__/
+*.pyc

@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework Condition="'$(TargetFramework)' == ''">net10.0-windows</TargetFramework>
+    <RevitYear Condition="'$(RevitYear)' == ''">2026</RevitYear>
+    <RevitInstallDir Condition="'$(RevitInstallDir)' == ''">C:\Program Files\Autodesk\Revit $(RevitYear)</RevitInstallDir>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AssemblyName>RhinoInside.GHFix</AssemblyName>
+    <RootNamespace>RhinoInside.GHFix</RootNamespace>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>portable</DebugType>
+    <Version>0.13.0-beta</Version>
+    <Authors>GHFix community prototype</Authors>
+    <Description>Update-separated, version-aware Grasshopper launch panel for Rhino.Inside.Revit</Description>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="RevitAPI"><HintPath>$(RevitInstallDir)\RevitAPI.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="RevitAPIUI"><HintPath>$(RevitInstallDir)\RevitAPIUI.dll</HintPath><Private>false</Private></Reference>
+    <None Include="..\assets\grasshopper-direct-open-32.svg" Link="assets\grasshopper-direct-open-32.svg" />
+    <None Include="..\assets\grasshopper-version-info-32.svg" Link="assets\grasshopper-version-info-32.svg" />
+    <EmbeddedResource Include="..\assets\ghfix_16.png" LogicalName="RhinoInside.GHFix.Images.ghfix_16.png" />
+    <EmbeddedResource Include="..\assets\ghfix_32.png" LogicalName="RhinoInside.GHFix.Images.ghfix_32.png" />
+    <EmbeddedResource Include="..\assets\diagnostic_16.png" LogicalName="RhinoInside.GHFix.Images.diagnostic_16.png" />
+    <EmbeddedResource Include="..\assets\diagnostic_32.png" LogicalName="RhinoInside.GHFix.Images.diagnostic_32.png" />
+  </ItemGroup>
+  <Target Name="ValidateRevitReferences" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(RevitInstallDir)\RevitAPI.dll') Or !Exists('$(RevitInstallDir)\RevitAPIUI.dll')"
+           Text="Revit API DLLs were not found in $(RevitInstallDir). Install Revit $(RevitYear), or set RevitInstallDir to its installation folder." />
+  </Target>
+</Project>
